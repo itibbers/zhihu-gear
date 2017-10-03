@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!--
+		知乎原文：https://www.zhihu.com/question/65957930/answer/238215859
+		Github: https://github.com/itibbers/zhihu-gear
+	-->
+</head>
+<body>
+<canvas id="ca" width="500px" height="300px" style="border: 1px solid"></canvas>
+<script>
+	var c = document.getElementById('ca');
+	var ctx = c.getContext('2d');
+
+	gear(ctx, 250, 150, 100);
+
+	function gear(c, x, y, r){
+		var a = 1/r; // 步长，可固定值
+		var A = 6; // 振幅A
+		var d = 4; // 拉长sin函数
+		c.beginPath();
+		for (var i = 0; i < 2 * Math.PI; i+=a) {
+			// P( (sin(ri)+r)cos(i), (sin(ri)+r)sin(i))
+			c.lineTo(x + ( A * Math.sin(r * i / d) + r ) * Math.cos(i), y + ( A * Math.sin(r * i / d) + r ) * Math.sin(i));
+		}
+		c.closePath();
+		c.stroke();
+		// 画齿轮内圆
+		c.beginPath();
+		c.arc(x, y, r/2, 0, 2*Math.PI);
+		c.stroke();
+	}
+</script>
+</body>
+</html>
